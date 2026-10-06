@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PHOTO_CATEGORIES, GEAR_LIST } from '../data/photosData';
+import { GEAR_LIST } from '../data/photosData';
 import { SITE_BACKGROUNDS } from './Navbar';
 import { 
   Filter, 
@@ -22,22 +22,20 @@ import { sounds } from '../utils/soundEffects';
 /**
  * SortWindow Component
  * Authentic Windows XP window containing:
- * - Sorting controls (Date, Title, Camera, Aperture, ISO)
- * - Category and camera medium filters
+ * - Sorting controls (Date, Title, Camera, Aperture)
+ * - Film & Sensor medium format filters (35mm, 120, Digital)
  * - Live search input
  * - Background Wallpaper Selector (Nyan Cat, 90s Space, Win95 Teal, Bliss, etc.)
  * - Photographer biography & camera gear information tabs
  */
 export default function SortWindow({
-  activeCategory = 'all',
-  onSelectCategory = () => {},
   cameraFilter = 'all',
   onSelectCameraFilter = () => {},
   sortBy = 'date-desc',
   onSelectSortBy = () => {},
   searchTerm = '',
   onSearchChange = () => {},
-  currentBg = 'nyan-cat',
+  currentBg = 'xp-blue',
   onSelectBg = () => {},
   totalPhotos = 12,
   filteredCount = 12
@@ -185,55 +183,25 @@ export default function SortWindow({
 
             {/* Window Content Body */}
             <div style={{ backgroundColor: '#ffffff', padding: '16px', minHeight: '130px' }}>
-              {/* TAB 1: SORT & FILTERS */}
+              {/* TAB 1: SORT & MEDIUM FILTERS */}
               {activeTab === 'sort' && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  {/* Categories */}
-                  <div>
-                    <span style={{ fontWeight: 'bold', color: '#002e7a', fontSize: '11px', display: 'block', marginBottom: '6px' }}>
-                      📁 Select Gallery Category:
-                    </span>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                      {PHOTO_CATEGORIES.map((cat) => {
-                        const isSelected = activeCategory === cat.id;
-                        return (
-                          <button
-                            key={cat.id}
-                            className={`xp-button ${isSelected ? 'primary' : ''}`}
-                            style={{
-                              backgroundColor: isSelected ? '#316ac5' : undefined,
-                              color: isSelected ? '#ffffff' : '#000000',
-                              borderWidth: isSelected ? '2px' : '1px'
-                            }}
-                            onClick={() => {
-                              sounds.playClick();
-                              onSelectCategory(cat.id);
-                            }}
-                          >
-                            <span>{cat.icon}</span>
-                            <span>{cat.name}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Middle Row: Medium format filters & Sort Dropdown */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #d4d0c8', paddingTop: '10px' }}>
+                  {/* Row: Medium Format Pills & Sort Dropdown */}
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center', justifyContent: 'space-between' }}>
                     {/* Camera Medium */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
-                      <span style={{ fontWeight: 'bold', color: '#444' }}>Film / Sensor:</span>
+                      <span style={{ fontWeight: 'bold', color: '#002e7a' }}>Film / Sensor:</span>
                       <button
                         className={`xp-button ${cameraFilter === 'all' ? 'primary' : ''}`}
                         onClick={() => { sounds.playClick(); onSelectCameraFilter('all'); }}
                       >
-                        All Media
+                        All Media ({totalPhotos})
                       </button>
                       <button
                         className={`xp-button ${cameraFilter === 'analog' ? 'primary' : ''}`}
                         onClick={() => { sounds.playClick(); onSelectCameraFilter('analog'); }}
                       >
-                        🎞️ 35mm Analog (Leica/Nikon)
+                        🎞️ 35mm Analog (Leica / Nikon)
                       </button>
                       <button
                         className={`xp-button ${cameraFilter === 'medium' ? 'primary' : ''}`}
@@ -245,7 +213,7 @@ export default function SortWindow({
                         className={`xp-button ${cameraFilter === 'digital' ? 'primary' : ''}`}
                         onClick={() => { sounds.playClick(); onSelectCameraFilter('digital'); }}
                       >
-                        ⚡ Full-Frame Digital (Sony/Canon)
+                        ⚡ Full-Frame Digital (Sony / Canon)
                       </button>
                     </div>
 
@@ -281,7 +249,7 @@ export default function SortWindow({
                     <span style={{ fontWeight: 'bold', color: '#444' }}>Live Search:</span>
                     <input
                       type="text"
-                      placeholder="Type keyword, camera (e.g. Leica, Hasselblad), or location..."
+                      placeholder="Type keyword, camera model, or location..."
                       value={searchTerm}
                       onChange={(e) => onSearchChange(e.target.value)}
                       style={{
@@ -306,13 +274,13 @@ export default function SortWindow({
                 </div>
               )}
 
-              {/* TAB 2: WALLPAPER SWITCHER (Nyan Cat & Retro 90s) */}
+              {/* TAB 2: WALLPAPER SWITCHER */}
               {activeTab === 'wallpaper' && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <div>
                     <b style={{ color: '#002e7a', fontSize: '12px' }}>Choose Website Wallpaper Background:</b>
                     <p style={{ margin: '4px 0 10px 0', color: '#555', fontSize: '11px' }}>
-                      Click any background below to change the wallpaper for the entire site!
+                      Click any background below to switch the website theme instantly!
                     </p>
                   </div>
 
@@ -434,7 +402,7 @@ export default function SortWindow({
             <div className="xp-statusbar">
               <div className="xp-status-pane" style={{ flex: 1 }}>
                 <span>
-                  Showing <b>{filteredCount}</b> of {totalPhotos} photographs • Wallpaper: <b>{SITE_BACKGROUNDS.find(b => b.id === currentBg)?.name || currentBg}</b> • Click any picture below to view Fullscreen!
+                  Showing <b>{filteredCount}</b> of {totalPhotos} photographs • Wallpaper: <b>{SITE_BACKGROUNDS.find(b => b.id === currentBg)?.name || currentBg}</b> • Single-click any photo to view Fullscreen!
                 </span>
               </div>
               <div className="xp-status-pane" style={{ minWidth: '160px' }}>

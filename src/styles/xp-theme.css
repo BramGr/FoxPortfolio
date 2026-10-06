@@ -432,6 +432,11 @@ body {
   to { opacity: 1; }
 }
 
+@keyframes clippyPop {
+  0% { transform: scale(0.7) translateY(16px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
 .xp-fullscreen-header {
   height: 36px;
   background: linear-gradient(180deg, #0058e6 0%, #257bf4 30%, #0054e3 100%);

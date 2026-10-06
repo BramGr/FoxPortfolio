@@ -7,17 +7,18 @@ import FullscreenViewer from './components/FullscreenViewer';
 import AboutSection from './components/AboutSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
+import Clippy from './components/Clippy';
 
 import { PORTFOLIO_PHOTOS } from './data/photosData';
 import { sounds } from './utils/soundEffects';
 
 export default function App() {
   const [theme, setTheme] = useState('luna');
-  const [currentBg, setCurrentBg] = useState('nyan-cat'); // Defaulting to the requested Nyan Cat background!
+  // XP Blue dot pattern is now the default background on opening the site!
+  const [currentBg, setCurrentBg] = useState('xp-blue');
   const [cameraFlash, setCameraFlash] = useState(false);
 
-  // Sorting & Filtering state
-  const [activeCategory, setActiveCategory] = useState('all');
+  // Sorting & Filtering state (simplified without category filter)
   const [cameraFilter, setCameraFilter] = useState('all');
   const [sortBy, setSortBy] = useState('date-desc');
   const [searchTerm, setSearchTerm] = useState('');
@@ -94,7 +95,7 @@ export default function App() {
         backgroundColor: '#0077aa'
       };
     } else {
-      // Default blue dot pattern
+      // Default XP Blue dot pattern
       return {
         backgroundColor: '#2a6edb',
         backgroundImage: 'radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), radial-gradient(rgba(255,255,255,0.1) 1px, #1a56c7 1px)',
@@ -104,10 +105,8 @@ export default function App() {
     }
   };
 
-  // Filter and sort the photo collection
+  // Filter and sort the photo collection (by medium and search term)
   const filteredAndSortedPhotos = PORTFOLIO_PHOTOS.filter((photo) => {
-    const matchesCategory = activeCategory === 'all' || photo.category === activeCategory;
-
     let matchesMedium = true;
     if (cameraFilter === 'analog') {
       matchesMedium =
@@ -123,10 +122,9 @@ export default function App() {
     const matchesSearch =
       photo.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       photo.camera.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      photo.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      photo.category.toLowerCase().includes(searchTerm.toLowerCase());
+      photo.location.toLowerCase().includes(searchTerm.toLowerCase());
 
-    return matchesCategory && matchesMedium && matchesSearch;
+    return matchesMedium && matchesSearch;
   }).sort((a, b) => {
     if (sortBy === 'date-desc') {
       return new Date(b.date) - new Date(a.date);
@@ -161,10 +159,8 @@ export default function App() {
 
       {/* 3. Main Site Container */}
       <main className="container-xp" style={{ flex: 1, paddingBottom: '30px' }}>
-        {/* Windows XP Sort & Info Center Window */}
+        {/* Windows XP Sort & Info Center Window (without category clutter) */}
         <SortWindow
-          activeCategory={activeCategory}
-          onSelectCategory={setActiveCategory}
           cameraFilter={cameraFilter}
           onSelectCameraFilter={setCameraFilter}
           sortBy={sortBy}
@@ -193,7 +189,10 @@ export default function App() {
       {/* 4. Windows XP Status Bar Footer */}
       <Footer totalPhotos={PORTFOLIO_PHOTOS.length} />
 
-      {/* 5. Fullscreen Windows Picture & Fax Viewer Modal (Triggered on click) */}
+      {/* 5. Animated Retro Clippy Assistant (Bottom-Right) */}
+      <Clippy onBgChange={setCurrentBg} />
+
+      {/* 6. Fullscreen Windows Picture & Fax Viewer Modal (Triggered on click) */}
       <FullscreenViewer
         currentPhoto={fullscreenPhoto}
         photos={filteredAndSortedPhotos}
