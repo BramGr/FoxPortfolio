@@ -81,11 +81,11 @@ export default function AboutSection() {
             <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
               <img
                 src="/avatar.jpg"
-                alt="Photographer Bram"
+                alt="Photographer Fox"
                 style={{ width: '130px', height: '130px', objectFit: 'cover', border: '2px solid #707070', borderRadius: '4px' }}
               />
               <div style={{ flex: 1, minWidth: '240px' }}>
-                <b style={{ color: '#002e7a', fontSize: '13px' }}>Fox Photography — Bram</b>
+                <b style={{ color: '#002e7a', fontSize: '13px' }}>Fox Photography — Fox</b>
                 <div style={{ color: '#666', marginBottom: '8px' }}>Visual Artist & Darkroom Printmaker</div>
 
                 <p style={{ margin: '0 0 8px 0' }}>

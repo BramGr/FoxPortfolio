@@ -289,11 +289,11 @@ export default function SortWindow({
                 <div style={{ display: 'flex', gap: '16px', fontSize: '11px', lineHeight: 1.5 }}>
                   <img
                     src="/avatar.jpg"
-                    alt="Bram"
+                    alt="Fox"
                     style={{ width: '90px', height: '90px', objectFit: 'cover', border: '1px solid #707070', borderRadius: '3px' }}
                   />
                   <div style={{ flex: 1 }}>
-                    <b style={{ color: '#002e7a', fontSize: '12px' }}>Bram — Independent Visual Photographer</b>
+                    <b style={{ color: '#002e7a', fontSize: '12px' }}>Fox — Independent Visual Photographer</b>
                     <p style={{ margin: '4px 0 8px 0', color: '#333' }}>
                       Specializing in documentary, architectural lines, and portraiture on analog film.
                       Using both 35mm rangefinders and 120 medium format, each image is developed with archival care.

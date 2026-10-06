@@ -109,7 +109,7 @@ export default function ContactWindow({ onClose }) {
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ width: '60px', color: '#444', textAlign: 'right', fontWeight: 'bold' }}>To:</span>
               <div style={{ flex: 1, backgroundColor: '#fff', border: '1px solid #7f9db9', padding: '2px 6px', fontSize: '11px' }}>
-                Fox Photography &lt;bram@foxportfolio.com&gt;
+                Fox Photography &lt;fox@foxportfolio.com&gt;
               </div>
             </div>
 

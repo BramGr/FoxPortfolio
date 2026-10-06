@@ -44,7 +44,7 @@ export default function StartMenu({
         />
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <span className="xp-start-username">Fox Photography</span>
-          <span style={{ fontSize: '11px', opacity: 0.85, color: '#e0edff' }}>Bram • Visual Artist & 35mm</span>
+          <span style={{ fontSize: '11px', opacity: 0.85, color: '#e0edff' }}>Fox • Visual Artist & 35mm</span>
         </div>
       </div>
 

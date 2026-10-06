@@ -112,7 +112,7 @@ export default function App() {
           onPhotoClick={(photo) => setFullscreenPhoto(photo)}
         />
 
-        {/* System Properties: About Bram & Exhibitions */}
+        {/* System Properties: About Fox & Exhibitions */}
         <AboutSection />
 
         {/* Outlook Express: Contact & Booking Form */}

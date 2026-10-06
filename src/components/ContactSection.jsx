@@ -102,7 +102,7 @@ export default function ContactSection() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <span style={{ width: '60px', textAlign: 'right', fontWeight: 'bold', color: '#444' }}>To:</span>
                 <div style={{ flex: 1, backgroundColor: '#ffffff', border: '1px solid #7f9db9', padding: '2px 8px' }}>
-                  Fox Photography &lt;bram@foxportfolio.com&gt;
+                  Fox Photography &lt;fox@foxportfolio.com&gt;
                 </div>
               </div>
 

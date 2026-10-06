@@ -77,7 +77,7 @@ export default function Navbar({
           className="xp-nav-link"
           onClick={() => sounds.playClick()}
         >
-          <span>👤 About Bram</span>
+          <span>👤 About Fox</span>
         </a>
 
         <a 

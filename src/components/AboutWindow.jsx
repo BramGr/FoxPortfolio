@@ -98,7 +98,7 @@ export default function AboutWindow({ onOpenContact }) {
                   borderRadius: '3px'
                 }}
               />
-              <div style={{ marginTop: '8px', fontWeight: 'bold', color: '#002e7a' }}>Bram / Fox</div>
+              <div style={{ marginTop: '8px', fontWeight: 'bold', color: '#002e7a' }}>Fox</div>
               <div style={{ fontSize: '10px', color: '#555' }}>Independent Photographer</div>
               <div style={{ fontSize: '10px', color: '#555' }}>Amsterdam & Global</div>
             </div>

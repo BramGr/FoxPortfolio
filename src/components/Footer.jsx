@@ -11,7 +11,7 @@ export default function Footer({ totalPhotos = 12 }) {
       {/* Left Pane */}
       <div className="xp-status-pane" style={{ flex: 1 }}>
         <span>
-          © 2026 <b>Fox Photography</b> / Bram • Fine Art, Documentary & Editorial
+          © 2026 <b>Fox Photography</b> • Fine Art, Documentary & Editorial
         </span>
       </div>
 

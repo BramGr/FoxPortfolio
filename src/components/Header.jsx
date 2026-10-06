@@ -36,7 +36,7 @@ export default function Header() {
         >
           <img
             src="/avatar.jpg"
-            alt="Photographer Bram"
+            alt="Photographer Fox"
             style={{
               width: '144px',
               height: '144px',
@@ -46,7 +46,7 @@ export default function Header() {
             }}
           />
           <div style={{ marginTop: '6px', fontWeight: 'bold', color: '#002e7a', fontSize: '13px' }}>
-            Bram / Fox
+            Fox
           </div>
           <div style={{ fontSize: '10px', color: '#555' }}>Visual Artist & 35mm</div>
         </div>
