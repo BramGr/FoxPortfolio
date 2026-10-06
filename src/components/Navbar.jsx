@@ -1,14 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Volume2, VolumeX, Camera, Sun, Moon, Clock, Sparkles } from 'lucide-react';
+import { Volume2, VolumeX, Camera, Image, Sparkles } from 'lucide-react';
 import { sounds } from '../utils/soundEffects';
+
+export const SITE_BACKGROUNDS = [
+  { id: 'nyan-cat', name: '🌈 Nyan Cat in Space', type: 'image', value: '/nyan-cat.jpg' },
+  { id: 'retro-space', name: '🚀 90s Space Starfield', type: 'image', value: '/retro-space.jpg' },
+  { id: 'win95-teal', name: '💾 Windows 95 Classic Teal', type: 'color', value: '#008080' },
+  { id: 'retro-pc', name: '🖥️ 90s CRT Desktop', type: 'image', value: '/retro-90s-pc.jpg' },
+  { id: 'bliss', name: '🌄 Windows XP Bliss', type: 'image', value: '/bliss.jpg' },
+  { id: 'autumn', name: '🍁 XP Autumn Foliage', type: 'image', value: '/autumn.jpg' },
+  { id: 'azul', name: '🌊 XP Azul Ocean', type: 'image', value: '/azul.jpg' },
+  { id: 'xp-blue', name: '🟦 XP Blue Dot Pattern', type: 'pattern', value: 'xp-blue' }
+];
 
 /**
  * Navbar Component
  * Windows XP Luna Taskbar styled sticky top navigation bar
+ * with Theme & Background Wallpaper switchers
  */
 export default function Navbar({
   currentTheme = 'luna',
   onThemeChange = () => {},
+  currentBg = 'nyan-cat',
+  onBgChange = () => {},
   onTakeSnap = () => {}
 }) {
   const [currentTime, setCurrentTime] = useState('');
@@ -69,7 +83,7 @@ export default function Navbar({
           className="xp-nav-link"
           onClick={() => sounds.playClick()}
         >
-          <span>🔍 Sort & Info Window</span>
+          <span>🔍 Sort & Info</span>
         </a>
 
         <a 
@@ -89,8 +103,38 @@ export default function Navbar({
         </a>
       </div>
 
-      {/* 3. Right: System Controls, Theme Switcher & Clock */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      {/* 3. Right: Background Switcher, Theme Switcher & System Controls */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+        {/* Background Wallpaper Switcher */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <span style={{ color: '#ffffff', fontSize: '10px', fontWeight: 'bold' }}>Wallpaper:</span>
+          <select
+            value={currentBg}
+            onChange={(e) => {
+              sounds.playStartup();
+              onBgChange(e.target.value);
+            }}
+            style={{
+              height: '22px',
+              fontSize: '11px',
+              fontFamily: 'Tahoma, sans-serif',
+              border: '1px solid #002e7a',
+              borderRadius: '2px',
+              backgroundColor: '#ffffff',
+              padding: '1px 4px',
+              fontWeight: 'bold',
+              color: '#002e7a'
+            }}
+            title="Switch Background Wallpaper (Nyan Cat, Retro 90s Space, Bliss, etc.)"
+          >
+            {SITE_BACKGROUNDS.map((bg) => (
+              <option key={bg.id} value={bg.id}>
+                {bg.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
         {/* Shutter snapshot sound trigger */}
         <button
           type="button"
@@ -119,7 +163,7 @@ export default function Navbar({
             backgroundColor: '#ffffff',
             padding: '1px 4px'
           }}
-          title="Switch Windows XP Theme"
+          title="Switch Windows XP Theme (Luna Blue, Silver, Olive)"
         >
           <option value="luna">Luna Blue</option>
           <option value="silver">Silver XP</option>

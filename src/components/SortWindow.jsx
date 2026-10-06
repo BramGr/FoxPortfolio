@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { PHOTO_CATEGORIES, GEAR_LIST } from '../data/photosData';
+import { SITE_BACKGROUNDS } from './Navbar';
 import { 
   Filter, 
   ArrowUpDown, 
@@ -13,7 +14,8 @@ import {
   List,
   Check,
   Minimize2,
-  Maximize2
+  Maximize2,
+  Image as ImageIcon
 } from 'lucide-react';
 import { sounds } from '../utils/soundEffects';
 
@@ -23,6 +25,7 @@ import { sounds } from '../utils/soundEffects';
  * - Sorting controls (Date, Title, Camera, Aperture, ISO)
  * - Category and camera medium filters
  * - Live search input
+ * - Background Wallpaper Selector (Nyan Cat, 90s Space, Win95 Teal, Bliss, etc.)
  * - Photographer biography & camera gear information tabs
  */
 export default function SortWindow({
@@ -34,10 +37,12 @@ export default function SortWindow({
   onSelectSortBy = () => {},
   searchTerm = '',
   onSearchChange = () => {},
+  currentBg = 'nyan-cat',
+  onSelectBg = () => {},
   totalPhotos = 12,
   filteredCount = 12
 }) {
-  const [activeTab, setActiveTab] = useState('sort'); // sort, info, gear, guide
+  const [activeTab, setActiveTab] = useState('sort'); // sort, wallpaper, info, gear, guide
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const handleTabChange = (tab) => {
@@ -91,7 +96,7 @@ export default function SortWindow({
         {!isCollapsed && (
           <>
             {/* Windows XP Tabstrip */}
-            <div style={{ display: 'flex', gap: '2px', borderBottom: '1px solid #707070', padding: '6px 10px 0 10px', backgroundColor: '#ece9d8' }}>
+            <div style={{ display: 'flex', gap: '2px', borderBottom: '1px solid #707070', padding: '6px 10px 0 10px', backgroundColor: '#ece9d8', overflowX: 'auto' }}>
               <button
                 className="xp-button"
                 style={{
@@ -112,6 +117,23 @@ export default function SortWindow({
               <button
                 className="xp-button"
                 style={{
+                  borderBottom: activeTab === 'wallpaper' ? '1px solid #ece9d8' : '1px solid #707070',
+                  backgroundColor: activeTab === 'wallpaper' ? '#ece9d8' : '#e0dcd0',
+                  fontWeight: activeTab === 'wallpaper' ? 'bold' : 'normal',
+                  borderTopLeftRadius: '4px',
+                  borderTopRightRadius: '4px',
+                  marginBottom: '-1px',
+                  zIndex: activeTab === 'wallpaper' ? 2 : 1
+                }}
+                onClick={() => handleTabChange('wallpaper')}
+              >
+                <ImageIcon size={12} color="#dc2626" />
+                <span>🎨 Wallpapers (Nyan Cat & 90s)</span>
+              </button>
+
+              <button
+                className="xp-button"
+                style={{
                   borderBottom: activeTab === 'info' ? '1px solid #ece9d8' : '1px solid #707070',
                   backgroundColor: activeTab === 'info' ? '#ece9d8' : '#e0dcd0',
                   fontWeight: activeTab === 'info' ? 'bold' : 'normal',
@@ -123,7 +145,7 @@ export default function SortWindow({
                 onClick={() => handleTabChange('info')}
               >
                 <Info size={12} color="#0054e3" />
-                <span>Photographer Bio</span>
+                <span>About Fox</span>
               </button>
 
               <button
@@ -140,7 +162,7 @@ export default function SortWindow({
                 onClick={() => handleTabChange('gear')}
               >
                 <Camera size={12} color="#0054e3" />
-                <span>Camera Rig Specs</span>
+                <span>Camera Rig</span>
               </button>
 
               <button
@@ -166,7 +188,7 @@ export default function SortWindow({
               {/* TAB 1: SORT & FILTERS */}
               {activeTab === 'sort' && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  {/* Top Row: Categories */}
+                  {/* Categories */}
                   <div>
                     <span style={{ fontWeight: 'bold', color: '#002e7a', fontSize: '11px', display: 'block', marginBottom: '6px' }}>
                       📁 Select Gallery Category:
@@ -253,7 +275,7 @@ export default function SortWindow({
                     </div>
                   </div>
 
-                  {/* Bottom Row: Search Box */}
+                  {/* Search Box */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderTop: '1px solid #d4d0c8', paddingTop: '10px' }}>
                     <Search size={14} color="#0054e3" />
                     <span style={{ fontWeight: 'bold', color: '#444' }}>Live Search:</span>
@@ -284,7 +306,69 @@ export default function SortWindow({
                 </div>
               )}
 
-              {/* TAB 2: PHOTOGRAPHER BIO & PHILOSOPHY */}
+              {/* TAB 2: WALLPAPER SWITCHER (Nyan Cat & Retro 90s) */}
+              {activeTab === 'wallpaper' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <div>
+                    <b style={{ color: '#002e7a', fontSize: '12px' }}>Choose Website Wallpaper Background:</b>
+                    <p style={{ margin: '4px 0 10px 0', color: '#555', fontSize: '11px' }}>
+                      Click any background below to change the wallpaper for the entire site!
+                    </p>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '10px' }}>
+                    {SITE_BACKGROUNDS.map((bg) => {
+                      const isSelected = currentBg === bg.id;
+                      return (
+                        <div
+                          key={bg.id}
+                          onClick={() => {
+                            sounds.playStartup();
+                            onSelectBg(bg.id);
+                          }}
+                          style={{
+                            border: isSelected ? '2px solid #0054e3' : '1px solid #aca899',
+                            boxShadow: isSelected ? '0 0 8px rgba(0, 84, 227, 0.6)' : '1px 2px 4px rgba(0,0,0,0.15)',
+                            borderRadius: '4px',
+                            padding: '6px',
+                            cursor: 'pointer',
+                            backgroundColor: isSelected ? '#d6dff7' : '#ffffff',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                            transition: 'all 0.1s ease'
+                          }}
+                        >
+                          {/* Mini Thumbnail */}
+                          <div
+                            style={{
+                              width: '46px',
+                              height: '32px',
+                              borderRadius: '2px',
+                              backgroundColor: bg.type === 'color' ? bg.value : '#000',
+                              backgroundImage: bg.type === 'image' ? `url(${bg.value})` : 'none',
+                              backgroundSize: 'cover',
+                              backgroundPosition: 'center',
+                              border: '1px solid #707070',
+                              flexShrink: 0
+                            }}
+                          />
+                          <div style={{ overflow: 'hidden' }}>
+                            <div style={{ fontWeight: isSelected ? 'bold' : 'normal', color: isSelected ? '#002e7a' : '#000000', fontSize: '11px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                              {bg.name}
+                            </div>
+                            <div style={{ fontSize: '9px', color: '#666' }}>
+                              {isSelected ? '✓ Active Wallpaper' : 'Click to Apply'}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* TAB 3: ABOUT FOX */}
               {activeTab === 'info' && (
                 <div style={{ display: 'flex', gap: '16px', fontSize: '11px', lineHeight: 1.5 }}>
                   <img
@@ -313,7 +397,7 @@ export default function SortWindow({
                 </div>
               )}
 
-              {/* TAB 3: CAMERA GEAR SPECS */}
+              {/* TAB 4: CAMERA GEAR SPECS */}
               {activeTab === 'gear' && (
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '10px', fontSize: '11px' }}>
                   {GEAR_LIST.map((group) => (
@@ -331,7 +415,7 @@ export default function SortWindow({
                 </div>
               )}
 
-              {/* TAB 4: HOW TO USE / FULLSCREEN GUIDE */}
+              {/* TAB 5: HOW TO USE / FULLSCREEN GUIDE */}
               {activeTab === 'guide' && (
                 <div style={{ background: '#f0fdf4', border: '1px solid #86efac', padding: '10px', borderRadius: '4px', fontSize: '11px', lineHeight: 1.5 }}>
                   <b style={{ color: '#166534', fontSize: '12px' }}>
@@ -350,7 +434,7 @@ export default function SortWindow({
             <div className="xp-statusbar">
               <div className="xp-status-pane" style={{ flex: 1 }}>
                 <span>
-                  Showing <b>{filteredCount}</b> of {totalPhotos} photographs • Filter: <b>{activeCategory.toUpperCase()}</b> • Single-click any photo to view full-screen!
+                  Showing <b>{filteredCount}</b> of {totalPhotos} photographs • Wallpaper: <b>{SITE_BACKGROUNDS.find(b => b.id === currentBg)?.name || currentBg}</b> • Click any picture below to view Fullscreen!
                 </span>
               </div>
               <div className="xp-status-pane" style={{ minWidth: '160px' }}>

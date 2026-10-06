@@ -13,6 +13,7 @@ import { sounds } from './utils/soundEffects';
 
 export default function App() {
   const [theme, setTheme] = useState('luna');
+  const [currentBg, setCurrentBg] = useState('nyan-cat'); // Defaulting to the requested Nyan Cat background!
   const [cameraFlash, setCameraFlash] = useState(false);
 
   // Sorting & Filtering state
@@ -35,6 +36,72 @@ export default function App() {
     setTimeout(() => {
       setCameraFlash(false);
     }, 380);
+  };
+
+  // Compute dynamic background style
+  const getBackgroundStyle = () => {
+    if (currentBg === 'nyan-cat') {
+      return {
+        backgroundImage: 'url(/nyan-cat.jpg)',
+        backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundColor: '#04103b'
+      };
+    } else if (currentBg === 'retro-space') {
+      return {
+        backgroundImage: 'url(/retro-space.jpg)',
+        backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundColor: '#020208'
+      };
+    } else if (currentBg === 'win95-teal') {
+      return {
+        backgroundColor: '#008080',
+        backgroundImage: 'none'
+      };
+    } else if (currentBg === 'retro-pc') {
+      return {
+        backgroundImage: 'url(/retro-90s-pc.jpg)',
+        backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundColor: '#111122'
+      };
+    } else if (currentBg === 'bliss') {
+      return {
+        backgroundImage: 'url(/bliss.jpg)',
+        backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundColor: '#2a6edb'
+      };
+    } else if (currentBg === 'autumn') {
+      return {
+        backgroundImage: 'url(/autumn.jpg)',
+        backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundColor: '#9a4510'
+      };
+    } else if (currentBg === 'azul') {
+      return {
+        backgroundImage: 'url(/azul.jpg)',
+        backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundColor: '#0077aa'
+      };
+    } else {
+      // Default blue dot pattern
+      return {
+        backgroundColor: '#2a6edb',
+        backgroundImage: 'radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), radial-gradient(rgba(255,255,255,0.1) 1px, #1a56c7 1px)',
+        backgroundSize: '20px 20px',
+        backgroundPosition: '0 0, 10px 10px'
+      };
+    }
   };
 
   // Filter and sort the photo collection
@@ -76,7 +143,7 @@ export default function App() {
   });
 
   return (
-    <div className="site-wrapper">
+    <div className="site-wrapper" style={getBackgroundStyle()}>
       {/* Visual Camera Flash Animation */}
       {cameraFlash && <div className="camera-flash-overlay" />}
 
@@ -84,6 +151,8 @@ export default function App() {
       <Navbar
         currentTheme={theme}
         onThemeChange={setTheme}
+        currentBg={currentBg}
+        onBgChange={setCurrentBg}
         onTakeSnap={handleTakeSnap}
       />
 
@@ -102,6 +171,8 @@ export default function App() {
           onSelectSortBy={setSortBy}
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
+          currentBg={currentBg}
+          onSelectBg={setCurrentBg}
           totalPhotos={PORTFOLIO_PHOTOS.length}
           filteredCount={filteredAndSortedPhotos.length}
         />
