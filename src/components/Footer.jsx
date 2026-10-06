@@ -1,48 +1,30 @@
 import React from 'react';
-import { HardDrive, CheckCircle2, Shield, Camera } from 'lucide-react';
+import { Shield, HardDrive, Camera, Sparkles } from 'lucide-react';
 
 /**
  * Footer Component
- * Serves as the classic Windows XP Status Bar for open windows and explorers,
- * displaying file counts, selection sizes, disk space, and security zone status.
+ * Classic Windows XP Status Bar at the bottom of the portfolio page
  */
-export default function Footer({
-  itemCount = 0,
-  selectedItem = null,
-  totalSize = '168 MB',
-  freeDiskSpace = '84.2 GB free',
-  statusText = '',
-  zone = 'My Computer'
-}) {
+export default function Footer({ totalPhotos = 12 }) {
   return (
-    <footer className="xp-statusbar" role="status">
-      {/* Left Pane: Object status or custom message */}
-      <div className="xp-status-pane" style={{ flex: 1, overflow: 'hidden' }}>
-        {statusText ? (
-          <span style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
-            {statusText}
-          </span>
-        ) : selectedItem ? (
-          <span style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
-            1 object(s) selected: <b>{selectedItem.title}</b> ({selectedItem.fileSize || '12 MB'})
-          </span>
-        ) : (
-          <span>
-            {itemCount} objects ({totalSize})
-          </span>
-        )}
+    <footer className="xp-statusbar" style={{ marginTop: 'auto', borderTop: '2px solid #002e7a' }}>
+      {/* Left Pane */}
+      <div className="xp-status-pane" style={{ flex: 1 }}>
+        <span>
+          © 2026 <b>Fox Photography</b> / Bram • Fine Art, Documentary & Editorial
+        </span>
       </div>
 
-      {/* Middle Pane: Camera / Disk space indicator */}
-      <div className="xp-status-pane" style={{ minWidth: '130px' }}>
-        <HardDrive size={12} color="#0054e3" />
-        <span>{freeDiskSpace}</span>
+      {/* Middle Pane */}
+      <div className="xp-status-pane" style={{ minWidth: '160px' }}>
+        <Camera size={12} color="#0054e3" />
+        <span>{totalPhotos} Works Published</span>
       </div>
 
-      {/* Right Pane: Security Zone / OS Environment */}
-      <div className="xp-status-pane" style={{ minWidth: '115px' }}>
+      {/* Right Pane */}
+      <div className="xp-status-pane" style={{ minWidth: '180px' }}>
         <Shield size={12} color="#2e7d32" />
-        <span>{zone}</span>
+        <span>Windows XP • Photography Edition</span>
       </div>
     </footer>
   );
